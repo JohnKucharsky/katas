@@ -1,20 +1,17 @@
-const mixedPromisesArray = [
-  Promise.resolve(33),
-  Promise.reject(44),
-];
-const p = Promise.all(mixedPromisesArray);
-console.log(p.catch(console.error));
-console.log("hit");
-setTimeout(() => {
-  console.log("the queue is now empty");
-  console.log(p);
-});
+const problemX = (nums: number[]) => {
+  const freqCounter = new Map();
 
-console.log("hit bottom");
+  for (const num of nums) {
+    freqCounter.set(num, (freqCounter.get(num) || 0) + 1);
+  }
 
-// Promise { <pending> }
-// hit
-// hit bottom
-// 44
-// the queue is now empty
-// Promise { <rejected> 44 }
+  const maxFrequency = Math.max(...freqCounter.values());
+
+  const maxFreqElements = [...freqCounter.keys()].filter(
+    (num) => freqCounter.get(num) === maxFrequency,
+  );
+
+  return maxFrequency * maxFreqElements.length;
+};
+
+problemX([1, 2, 2, 3, 1, 4]);
